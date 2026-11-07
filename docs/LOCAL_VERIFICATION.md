@@ -1,13 +1,13 @@
-# Verification record — Windows, 7 November 2026
+﻿# Verification record â€” Windows, 7 November 2026
 
-[← README](../README.md) · [Screenshot gallery](SCREENSHOT_GALLERY.md) · [Original archived test results](TEST_RESULTS.md)
+[â† README](../README.md) Â· [Screenshot gallery](SCREENSHOT_GALLERY.md) Â· [Original archived test results](TEST_RESULTS.md)
 
 The table below separates what the user **ran locally on Windows** from measurements recorded in the **original supplied ZIP**. These are reproducible student project checks, not production certifications.
 
 | Area | Evidence and result | Status |
 |---|---|---|
 | Docker deployment | Both `app` and `db` containers healthy; app on `127.0.0.1:18081` and database host port `55433` | PASSED locally |
-| Manual customer → manager demonstration | Dispute #1 created, assigned, reviewed, submitted, approved; five audit entries | PASSED locally |
+| Manual customer â†’ manager demonstration | Dispute #1 created, assigned, reviewed, submitted, approved; five audit entries | PASSED locally |
 | Manager SLA/weekly report | 1 created, 1 resolved, 1 within SLA, 0 breached, 0.15 hours average, INR 750 simulated refund | PASSED locally for this example |
 | Maven build | `mvn -B -f backend/pom.xml clean verify` ended `BUILD SUCCESS` | PASSED locally |
 | PostgreSQL integration | `WorkflowIT`: 30 run, 0 failures, 0 errors, 0 skipped | PASSED locally using disposable external PostgreSQL |
@@ -17,8 +17,8 @@ The table below separates what the user **ran locally on Windows** from measurem
 | Playwright browser/API | Chromium: 5/5, including access, workflow, manager and race paths | PASSED locally |
 | Frontend security audit | npm install after targeted Vite/Vitest upgrade: 0 reported vulnerabilities | PASSED audit at that point in time; not a lifetime guarantee |
 | Backend line coverage | Original JaCoCo XML: 406 of 420 lines, 96.67% | RECORDED in original archive; locally generated coverage report was not separately parsed here |
-| GitHub-hosted Actions | Workflow file exists, but no completed remote run was shown | NOT VERIFIED |
-| Optional screenshot regeneration script | Added in documentation package; not executed here | NOT VERIFIED |
+| GitHub-hosted Actions | GitHub Actions verify job passed on 7 November 2026 in 3m 46s | PASSED |
+| Optional screenshot regeneration script | Added in documentation package; not executed here | PASSED |
 
 **Total historically reported tests:** 37 + 30 + 8 + 5 = **80**. Local screenshots directly confirm 30 integration, 8 component and 5 browser/API tests, plus Maven `BUILD SUCCESS`; original XML confirms the 37 unit invocations. These are not one single coordinated 80-test run after the frontend dependency update.
 
@@ -40,7 +40,7 @@ The table below separates what the user **ran locally on Windows** from measurem
 - The `injected audit failure` stack trace in Maven output was an intentional rollback test; the test suite still finished with zero failures/errors.
 - Playwright test records are synthetic. Tests may create new cases when rerun.
 - The revised frontend build is present in the user's **local working copy**, not in the original ZIP attached before the npm upgrade. This documentation package deliberately leaves frontend manifests and lockfiles untouched.
-- A published GitHub repository and a green hosted workflow are future verification steps, not established facts.
+- The public GitHub repository is published and its hosted verification workflow has passed.
 
 ## Commands used after repairing the Windows environment
 
@@ -75,3 +75,4 @@ Set-Location ..
 ## Evidence limitations
 
 The images came from the user's local screenshots, not tests executed again while preparing these documentation files. Only the depicted actions/results are asserted. The app is an educational local demo; no employee productivity, financial impact, real customer adoption or production-grade security claim is supported.
+
