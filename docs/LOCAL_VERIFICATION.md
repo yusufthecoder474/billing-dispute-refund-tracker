@@ -1,8 +1,31 @@
-> **Two-service upgrade:** The original single-service notes below are historical where they refer to `backend/`, SQL reporting inside the app or the previous Compose service names. See [current two-service design](MICROSERVICES.md) for updated architecture, internal endpoints, deployment, auth, limitations and verification status. New two-service tests are not yet measured.
+> **Current status:** The reporting extraction has been merged into `main` after successful local testing and GitHub Actions runs. This page lists the current two-service results first; later sections preserve the original single-service evidence for historical comparison.
 
 # Verification record — Windows, 7 November 2026
 
 [← README](../README.md) · [Screenshot gallery](SCREENSHOT_GALLERY.md) · [Original archived test results](TEST_RESULTS.md)
+
+## Current two-service results (7 November 2026)
+
+| Verification | Result | Evidence |
+|---|---|---|
+| Dispute-service automated tests | **71 passed**, zero failures/errors/skips (32 PostgreSQL integrations included) | Independent Maven build; disposable external PostgreSQL on port 55434 |
+| Reporting-service automated tests | **10 passed**, zero failures/errors/skips | Independent Maven build; 1 controller, 4 client, 5 reporting logic |
+| Frontend component tests | **8 passed** | Vitest 4.1.12 |
+| Browser/API tests | **5 passed** | Playwright Chromium, 25.3 seconds |
+| **All local automated tests** | **94 passed** | Sum of four verified test suites |
+| Dispute-service JaCoCo **line** coverage | **415/455 = 91.21%** | Local JaCoCo summary |
+| Reporting-service JaCoCo **line** coverage | **86/111 = 77.48%** | Local JaCoCo summary |
+| Three-container Compose stack | **Healthy** | PostgreSQL, dispute-service, reporting-service |
+| Inter-service authenticated REST | **Passed** | Internal requests without API key rejected; manager JSON/CSV report passed |
+| React TypeScript and Vite build | **Passed** | Local build |
+| GitHub Actions (feature branch) | **Passed, 3m 19s** | [Workflow run](https://github.com/yusufthecoder474/billing-dispute-refund-tracker/actions/runs/42349345544) |
+| GitHub Actions (`main`) | **Passed, 3m 34s** | [Workflow run](https://github.com/yusufthecoder474/billing-dispute-refund-tracker/actions/runs/42349763861) |
+
+**Measurement boundaries:** These totals combine separate test runs; none represent production load. PostgreSQL integration tests used the disposable external test database. The intentional `injected audit failure` exception during the rollback test did not cause an error. Local Compose startup duration was not captured as a separate measurement. Refunds are simulated. The original screenshots below predate the extraction and are preserved for reference.
+
+## Historical single-service evidence (before extraction)
+
+
 
 The table below separates what the user **ran locally on Windows** from measurements recorded in the **original supplied ZIP**. These are reproducible student project checks, not production certifications.
 
@@ -19,7 +42,7 @@ The table below separates what the user **ran locally on Windows** from measurem
 | Playwright browser/API | Chromium: 5/5, including access, workflow, manager and race paths | PASSED locally |
 | Frontend security audit | npm install after targeted Vite/Vitest upgrade: 0 reported vulnerabilities | PASSED audit at that point in time; not a lifetime guarantee |
 | Backend line coverage | Original JaCoCo XML: 406 of 420 lines, 96.67% | RECORDED in original archive; locally generated coverage report was not separately parsed here |
-| GitHub-hosted Actions | Workflow file exists, but no completed remote run was shown | NOT VERIFIED |
+| GitHub-hosted Actions | No run was yet shown when this original screenshot record was written; the original workflow later passed | HISTORICAL SNAPSHOT |
 | Optional screenshot regeneration script | Added in documentation package; not executed here | NOT VERIFIED |
 
 **Total historically reported tests:** 37 + 30 + 8 + 5 = **80**. Local screenshots directly confirm 30 integration, 8 component and 5 browser/API tests, plus Maven `BUILD SUCCESS`; original XML confirms the 37 unit invocations. These are not one single coordinated 80-test run after the frontend dependency update.
@@ -42,7 +65,7 @@ The table below separates what the user **ran locally on Windows** from measurem
 - The `injected audit failure` stack trace in Maven output was an intentional rollback test; the test suite still finished with zero failures/errors.
 - Playwright test records are synthetic. Tests may create new cases when rerun.
 - The revised frontend build is present in the user's **local working copy**, not in the original ZIP attached before the npm upgrade. This documentation package deliberately leaves frontend manifests and lockfiles untouched.
-- A published GitHub repository and a green hosted workflow are future verification steps, not evidence of the new two-service build.
+- Repository publication and green two-service GitHub Actions workflows are now recorded in the current-results section above.
 
 ## Commands used after repairing the Windows environment
 

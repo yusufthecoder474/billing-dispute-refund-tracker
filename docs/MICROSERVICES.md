@@ -84,7 +84,7 @@ Each module produces its own JAR and JaCoCo report in its `target/` directory. F
 
 New tests: reporting aggregation edge cases, export REST contract with WireMock, invalid service credentials, bounded retry, unavailable upstream, existing frontend Playwright workflow, a Compose smoke that verifies both services through the manager route. The original backend tests are preserved, but the weekly fixture's report portion now tests the **proxy** using a mock; actual aggregation is tested in reporting-service.
 
-**No new results are stated until the user or GitHub Actions runs these commands.** The earlier single-service evidence (37 backend unit, 30 integration, 8 frontend, 5 browser, archived 96.67% backend line coverage, and 3m46s prior CI run) describes the old baseline only; it cannot be copied to the new service release.
+**Verified 7 November 2026:** The upgraded system passed **94 local automated tests** across four suites (dispute-service 71, reporting-service 10, React 8, Playwright 5). JaCoCo **line coverage** was **415/455 (91.21%)** for dispute-service and **86/111 (77.48%)** for reporting-service. The three Compose containers were healthy, manager JSON/CSV reporting passed across authenticated REST, and both internal endpoints rejected unauthenticated requests. GitHub Actions passed on the feature branch (**3m 19s**) and merged `main` (**3m 34s**). The archived original single-service figures remain historical only.
 
 CI saves test XML, JaCoCo CSV/XML, Docker logs and the measured `ci-metrics/startup.txt`. The full workflow runtime is on the GitHub Actions run page. Use `python3 scripts/coverage-summary.py` to print **actual measured** per-module test counts and JaCoCo line coverage after Maven completes.
 
@@ -94,10 +94,10 @@ I extracted weekly reporting because it is a read-only feature with a clear cont
 
 **30-second interview explanation:** "My dispute tracker started as a Spring Boot monolith. I extracted weekly reporting into a separate Java 21 Spring Boot service, with its own Maven build and Docker image. The reporting service cannot connect to PostgreSQL; instead it retrieves paginated minimal records from the dispute service through a versioned REST endpoint protected by a shared API key. I kept the existing manager-only frontend API, added timeouts, one retry and a 503 error path, and wrote aggregation and HTTP contract tests. The trade-off is more network dependency and no cross-service snapshot."
 
-**Resume bullets (only after verification):**
+**Resume bullets supported by the verified student project:**
 
-- Built two independently deployable Java 21/Spring Boot services by moving weekly CSV reporting behind a versioned, authenticated REST contract; measured verification: **[FILL IN AFTER RUN]**.
-- Preserved the manager reporting workflow while removing reporting-service database access, confirmed by **[FILL IN: executed inter-service tests]** and a real Compose smoke run.
-- Added timeouts, one bounded retry and explicit 503 failure handling; verified by **[FILL IN: passing failure-path tests and measured CI result]**.
+- Built **two independently deployable Java 21/Spring Boot services**, verified by **94 passing local tests** and a green `main` CI run, by extracting weekly CSV reporting behind a versioned, authenticated REST contract.
+- Preserved the React manager dashboard and reporting workflow, confirmed by a successful **three-container Compose smoke**, **5 passing Playwright tests**, and working weekly JSON/CSV, while keeping PostgreSQL accessible only to dispute-service.
+- Tested service failures and HTTP contracts in reporting-service's **10 passing tests**; measured **77.48% reporting-service line coverage** and implemented bounded retry, timeouts and explicit 503 errors.
 
-Remove the placeholders entirely if those checks have not run. Do not claim a deployment or measurement from this proposed implementation alone.
+These are local/hosted student-project measurements, not claims of commercial production traffic. The two-way synchronous REST flow, lack of cross-service snapshot, and educational key authentication remain intentional trade-offs.

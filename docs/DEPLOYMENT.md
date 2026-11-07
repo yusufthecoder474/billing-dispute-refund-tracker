@@ -1,64 +1,46 @@
-> **Two-service upgrade:** The original single-service notes below are historical where they refer to `backend/`, SQL reporting inside the app or the previous Compose service names. See [current two-service design](MICROSERVICES.md) for updated architecture, internal endpoints, deployment, auth, limitations and verification status. New two-service tests are not yet measured.
-
 # Local deployment and optional hosting assessment
 
-The supported zero-service-cost demonstration is Docker Compose on your own machine. Install Docker Desktop on Windows 11 or Docker Engine plus the Compose plugin on Ubuntu. Start the engine before setup. Internet access is needed for the initial image and dependency downloads.
+The verified local environment uses **three Docker Compose containers**: PostgreSQL 16.4, dispute-service (Spring Boot, internal port 8080, default host port 18081) and reporting-service (Spring Boot, internal port 8081, default host port 18082). Only dispute-service connects directly to PostgreSQL. The React frontend is served by dispute-service.
 
-From the extracted repository root:
+## Windows quick start
+
+Install and start Docker Desktop. From the repository root:
 
 ```powershell
-Copy-Item .env.example .env
-docker compose up --build -d --wait --wait-timeout 240
-Start-Process http://localhost:8080
-```
-
-```sh
-cp .env.example .env
-docker compose up --build -d --wait --wait-timeout 240
-# Open http://localhost:8080 in your browser.
-```
-
-Do not overwrite an existing .env containing your chosen password. The setup scripts copy only if missing. Compose runs two containers, mounts a persistent database volume, waits for pg_isready and builds Vite assets into the Spring Boot JAR. Container startup runs Flyway then Hibernate schema validation. The application health URL is /api/health; this lightweight liveness check does not query the database after startup. Compose's database health check is separate.
-
-Configuration: DB_URL is a JDBC URL, DB_USER and DB_PASSWORD are environment values, PORT defaults to 8080, COOKIE_SECURE defaults true outside the local/test override, and API_DOCS_ENABLED defaults false outside local/test. Compose binds both published ports to 127.0.0.1 and explicitly enables the local profile and demo seeds. APP_PORT and DB_PORT change host ports only. The final app runs as an unprivileged Linux user.
-
-Logs and shutdown:
-
-```sh
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup.ps1
 docker compose ps
-docker compose logs --tail=100 app db
-docker compose logs -f app
+python .\scripts\smoke-two-services.py
+Start-Process http://localhost:18081
+```
+
+The setup script preserves an existing `.env`, copies `.env.example` if absent, generates a local random `INTERNAL_API_KEY` if missing, and builds/starts the three services with health checks. Keep `.env` private and never push it. Default database port is 55433, dispute web port 18081, reporting port 18082. Override host ports in `.env` if needed. `docker compose config --quiet` checks the configuration.
+
+**Linux/macOS:** run `./scripts/setup.sh` from the repository root; check the instructions in [the microservices guide](MICROSERVICES.md). The reporting health endpoint is `http://localhost:18082/api/health`. Both services have OpenAPI endpoints in the local Compose profile.
+
+## Logs and safe shutdown
+
+```powershell
+docker compose ps
+docker compose logs --tail=100 dispute-service reporting-service db
 docker compose stop
 docker compose start
-# Remove containers while retaining the database volume:
+# Removes containers while retaining the database volume:
 docker compose down
 ```
 
-Destructive reset: `docker compose down -v` deletes the database volume and every synthetic dispute. Only run it when you intentionally want a clean demo. Then start Compose again. Do not repair Flyway by deleting its history table. Future schema changes require new migrations.
+Avoid `docker compose down -v` unless intentionally deleting all synthetic demo database records. Tests requiring a database should use a separate disposable PostgreSQL database (previous local test host port 55434), **not** the running demo database on port 55433.
 
-## Development without the application container
-
-Start only the database with `docker compose up -d db`. With Java JDK 21, Maven 3.9+ and Node 22.12+, run the backend and Vite in separate terminals. Set DB_PASSWORD to the value in .env; Maven does not automatically load .env.
+## Independent builds and test verification
 
 ```powershell
-$env:SPRING_PROFILES_ACTIVE='local'
-$env:DB_PASSWORD='local-billing-demo-change-me'
-mvn -f backend/pom.xml spring-boot:run
-# Second terminal, repository root:
-Set-Location frontend
-npm ci
-npm run dev
+mvn -B -f .\dispute-service\pom.xml clean verify
+mvn -B -f .\reporting-service\pom.xml clean verify
+python .\scripts\coverage-summary.py
 ```
 
-```sh
-SPRING_PROFILES_ACTIVE=local DB_PASSWORD=local-billing-demo-change-me mvn -f backend/pom.xml spring-boot:run
-# Second terminal, repository root:
-cd frontend
-npm ci
-npm run dev
-```
+The second service gets reporting inputs through an API-key-protected REST export. If either service is unavailable, weekly reports fail with HTTP 503 rather than silently returning incomplete data. See [microservices API and design](MICROSERVICES.md), [verification record](LOCAL_VERIFICATION.md), and [troubleshooting](TROUBLESHOOTING.md).
 
-Open http://localhost:5173. Vite proxies /api to localhost:8080. If you changed DB_PORT, also set DB_URL explicitly. For a production-style local package, use Compose; the Maven-only command does not build React for you.
+**Last verified locally:** 7 November 2026, with three healthy containers and a successful reporting smoke test. Both GitHub Actions runs passed (feature branch 3m 19s; `main` 3m 34s). No public deployment has been verified. The optional hosting assessment below was researched for the original application and is **not** an executed hosting guide for this two-service version.
 
 ## Optional public route, checked 7 November 2026
 

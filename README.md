@@ -108,7 +108,7 @@ flowchart LR
 
 [Two-service architecture and security trade-offs](docs/MICROSERVICES.md) · [Original database schema](docs/DATABASE_DESIGN.md) · [Endpoint reference](docs/API.md)
 
-> **Upgrade status:** This two-service extraction is an implementation candidate. The archived screenshots and old test numbers below relate to the original single-service build. New two-service CI, coverage and startup times must be measured before being advertised.
+> **Verified two-service release — 7 November 2026:** Both Java 21/Spring Boot services built independently. The three-container Docker Compose stack was healthy; authenticated inter-service REST, manager weekly JSON/CSV, and regression tests passed locally. GitHub Actions passed on the feature branch and on `main` after PR #1 was merged. See [measured test results](#tests-and-verified-evidence). The screenshots above remain labeled as historical captures of the original single-service UI.
 
 ## Tech stack, grouped by purpose
 
@@ -122,7 +122,7 @@ flowchart LR
 | **Development & delivery** | Git, GitHub Actions, Maven, npm, Docker Compose | Version control, repeatable builds and local deployment. |
 | **Documentation** | Markdown, OpenAPI/Swagger UI, Mermaid | Explain APIs, workflows, setup and troubleshooting. |
 
-**Dependency note:** the bundled original frontend lockfile predates the separately verified local upgrade to Vite 7.3.7 and Vitest 4.1.12. Before publishing, retain your currently updated frontend package and lock files instead of overwriting them with the archived baseline. Re-run `npm audit` and frontend tests on the actual assembled version.
+**Frontend verification:** The merged project was tested locally with Vite 7.3.7 and Vitest 4.1.12: 8/8 component tests and the production build passed. Dependency audit results are time-specific; rerun `npm audit` when packages change.
 
 ## Database: four key tables
 
@@ -206,22 +206,26 @@ Accounts are seeded in the **local demonstration profile only**. These credentia
 
 ## Tests and verified evidence
 
-**Archive-only baseline (single service, before extraction):** do not attribute these measurements to the two-service code until reverified. The newly added tests and CI are not executed by the documentation upgrade alone.
+**Verified two-service build — Windows, 7 November 2026.** The counts below come from separate completed local test runs and their Maven/JUnit/JaCoCo reports, not from one invented all-in-one run. All tests listed here passed with zero reported failures, errors or skips.
 
-| Check | Evidence available | Status |
+| Check | Measured result | Verification |
 |---|---|---|
-| Spring Boot / Maven build | Windows Maven `BUILD SUCCESS` screenshot | **Passed locally** |
-| Java unit tests | Archived JUnit report: 37 | **Passed in archived run** |
-| PostgreSQL integration tests | Windows Maven output: 30 tests, zero failures/errors/skips | **Passed locally** |
-| React TypeScript + Vite build | Windows build after dependency update | **Passed locally** |
-| React component tests | Windows Vitest 4.1.12: 8/8 | **Passed locally** |
-| Playwright browser/API suite | Windows Chromium: 5/5 | **Passed locally** |
-| Backend JaCoCo **line** coverage | Archived report: **406/420 = 96.67%** | **Recorded in original run** |
-| Docker Compose deployment | Windows `app` and `db` healthy | **Passed locally** |
-| Hosted GitHub Actions | Original single-service run succeeded in 3m46s on 7 Nov 2026 | **Passed for old version only** |
-| New two-service Maven/Compose/CI | Tests and workflow added; not executed in this deliverable environment | **NOT EXECUTED HERE** |
+| **dispute-service** Maven/JUnit/PostgreSQL | **71 tests passed**, including **32 PostgreSQL integration cases** | Local `mvn clean verify` succeeded |
+| **reporting-service** Maven/JUnit/REST client | **10 tests passed** (1 controller, 4 REST-client, 5 reporting-logic) | Independent `mvn clean verify` succeeded |
+| React component tests | **8 tests passed** | Vitest 4.1.12 |
+| Chromium browser/API suite | **5 tests passed** | Playwright regression run, 25.3 seconds |
+| **Total tested locally** | **94 passed** (71 + 10 + 8 + 5) | Separate verification commands |
+| dispute-service **JaCoCo line coverage** | **415/455 = 91.21%** | Local JaCoCo XML and coverage-summary script |
+| reporting-service **JaCoCo line coverage** | **86/111 = 77.48%** | Local JaCoCo XML and coverage-summary script |
+| Frontend TypeScript and production build | **Passed** | `npm run build` |
+| Docker Compose | **PostgreSQL + dispute-service + reporting-service healthy** | Windows local stack; no standalone startup-time measurement claimed |
+| Inter-service REST smoke | **Passed** | Both health endpoints, denied unauthenticated internal requests, manager weekly JSON and CSV |
+| GitHub Actions on feature branch | **Passed — 3m 19s** | [PR #1 workflow](https://github.com/yusufthecoder474/billing-dispute-refund-tracker/actions/runs/42349345544) |
+| GitHub Actions on `main` | **Passed — 3m 34s** | [Merged main workflow](https://github.com/yusufthecoder474/billing-dispute-refund-tracker/actions/runs/42349763861) |
 
-The **80 test cases** (37 + 30 + 8 + 5) reflect the archived and Windows evidence described above, not one single fresh command. The 96.67% figure is **line coverage**, not branch, instruction or production-quality certification. Tests use synthetic data. [Screenshots and exact context](docs/LOCAL_VERIFICATION.md).
+**Original single-service baseline, retained for comparison only:** the archived package recorded 37 unit, 30 integration, 8 React and 5 browser/API tests (80 total), plus **406/420 = 96.67% backend JaCoCo line coverage**. Those numbers do **not** describe the updated architecture. Current coverage is per service; it is not branch coverage or a production performance claim. All charges and refunds are simulated.
+
+The Compose startup time was not separately captured in the local screenshots. The CI workflow measures Compose start-to-healthy time in its `two-service-verification` artifact (`ci-metrics/startup.txt`), but no value is asserted here without inspecting that artifact. See [Windows verification details](docs/LOCAL_VERIFICATION.md) and [service design](docs/MICROSERVICES.md).
 
 To rerun the Java checks without Testcontainers auto-discovery on your Windows setup, use a **disposable separate** PostgreSQL test database (details in [troubleshooting](docs/TROUBLESHOOTING.md#testcontainers-cannot-find-docker-on-windows)). Do not run destructive integration tests against your app DB on port `55433`.
 
@@ -280,8 +284,9 @@ billing-dispute-refund-tracker/
 │   └── evidence/chat/         Archived troubleshooting/testing screenshots
 ├── evaluation/                Archived reproducible test evidence
 ├── .github/workflows/ci.yml   GitHub Actions workflow definition
-├── compose.yaml               App + PostgreSQL local services
-├── Dockerfile                 Multi-stage application build
+├── compose.yaml               PostgreSQL + two Spring Boot services
+├── dispute-service/Dockerfile  Independently buildable dispute image
+├── reporting-service/Dockerfile Independently buildable reporting image
 └── README.md                  You are here
 ```
 
@@ -304,7 +309,7 @@ billing-dispute-refund-tracker/
 - The audit log is append-oriented through application code, **not tamper-proof against a database administrator**.
 - The fixed 72-hour SLA includes weekends and holidays. It is a project rule, not a telecom provider commitment.
 - No live customer traffic, production load measurements or measured business improvement is claimed.
-- A successful local Docker build is not evidence of a successful GitHub-hosted CI run.
+- GitHub-hosted CI passed on both the feature branch and merged `main`; this is not a production deployment or security certification.
 - Security is appropriate to an educational local demo, not a production security certification.
 
 ## Open source and acknowledgements
