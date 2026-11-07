@@ -8,5 +8,6 @@
 .idea/
 .vscode/
 .DS_Store
-backend/src/main/resources/static/
+dispute-service/src/main/resources/static/
+
 *.backup

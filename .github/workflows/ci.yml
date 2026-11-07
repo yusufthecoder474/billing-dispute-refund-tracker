@@ -1,4 +1,4 @@
-name: Build and verify
+name: Build and verify two services
 on:
   pull_request:
     branches: [main]
@@ -10,7 +10,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -18,7 +18,9 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-          cache-dependency-path: backend/pom.xml
+          cache-dependency-path: |
+            dispute-service/pom.xml
+            reporting-service/pom.xml
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -26,8 +28,10 @@ jobs:
           cache-dependency-path: |
             frontend/package-lock.json
             e2e/package-lock.json
-      - name: Unit, PostgreSQL integration tests and JaCoCo
-        run: mvn -B -f backend/pom.xml clean verify
+      - name: Dispute-service unit, PostgreSQL integration tests and JaCoCo
+        run: mvn -B -ntp -f dispute-service/pom.xml clean verify
+      - name: Reporting-service unit and REST contract tests and JaCoCo
+        run: mvn -B -ntp -f reporting-service/pom.xml clean verify
       - name: Frontend checks
         working-directory: frontend
         run: |
@@ -35,31 +39,46 @@ jobs:
           npm run typecheck
           npm run build
           npm test
-      - name: Start packaged application
+      - name: Start PostgreSQL and two packaged Spring Boot services
         run: |
           cp .env.example .env
-          docker compose up --build -d --wait --wait-timeout 240
-      - name: Browser smoke tests
+          echo "INTERNAL_API_KEY=$(openssl rand -hex 32)" >> .env
+          start=$(date +%s)
+          docker compose up --remove-orphans --build -d --wait --wait-timeout 300
+          end=$(date +%s)
+          mkdir -p ci-metrics
+          echo "Compose start-to-healthy: $((end-start)) seconds" | tee ci-metrics/startup.txt
+          docker compose ps
+      - name: Inter-service REST and authorization smoke
+        run: python3 scripts/smoke-two-services.py
+      - name: Browser smoke and regression tests
         working-directory: e2e
+        env:
+          BASE_URL: http://127.0.0.1:18081
         run: |
           npm ci
           npx playwright install --with-deps chromium
           npm test
-      - name: Container logs
+      - name: Capture test and coverage evidence
         if: always()
-        run: docker compose logs --no-color > compose-test.log 2>&1 || true
+        run: |
+          mkdir -p ci-metrics
+          python3 scripts/coverage-summary.py > ci-metrics/verification-summary.txt || true
+          docker compose logs --no-color > ci-metrics/compose.log 2>&1 || true
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: verification-evidence
+          name: two-service-verification
           path: |
-            backend/target/surefire-reports
-            backend/target/failsafe-reports
-            backend/target/site/jacoco
-            backend/target/evaluation
+            dispute-service/target/surefire-reports
+            dispute-service/target/failsafe-reports
+            dispute-service/target/site/jacoco
+            dispute-service/target/evaluation
+            reporting-service/target/surefire-reports
+            reporting-service/target/site/jacoco
             e2e/test-results
             e2e/playwright-report
-            compose-test.log
+            ci-metrics
       - name: Stop containers
         if: always()
         run: docker compose down

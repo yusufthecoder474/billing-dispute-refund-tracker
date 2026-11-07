@@ -1,3 +1,5 @@
+> **Two-service upgrade:** The original single-service notes below are historical where they refer to `backend/`, SQL reporting inside the app or the previous Compose service names. See [current two-service design](MICROSERVICES.md) for updated architecture, internal endpoints, deployment, auth, limitations and verification status. New two-service tests are not yet measured.
+
 # REST API contract
 
 Base path: /api. JSON uses camelCase and ISO-8601 UTC timestamps. INR amounts are decimal numbers in responses; clients may submit decimal strings to preserve decimal text. IDs and versions are integers. Responses are DTOs, not JPA entities. Errors use `{"status":409,"message":"Stale version: reload the dispute.","timestamp":"2026-11-02T12:00:00Z"}`. Examples below are illustrative contract examples, not captured transaction evidence.

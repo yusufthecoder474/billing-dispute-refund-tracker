@@ -1,3 +1,5 @@
+> **Two-service upgrade:** The original single-service notes below are historical where they refer to `backend/`, SQL reporting inside the app or the previous Compose service names. See [current two-service design](MICROSERVICES.md) for updated architecture, internal endpoints, deployment, auth, limitations and verification status. New two-service tests are not yet measured.
+
 # User manual — Billing Dispute & Refund Tracker
 
 [← README](../README.md) · [Screenshot gallery](SCREENSHOT_GALLERY.md) · [Troubleshooting](TROUBLESHOOTING.md)
