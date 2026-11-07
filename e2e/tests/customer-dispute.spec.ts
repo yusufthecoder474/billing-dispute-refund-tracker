@@ -1,0 +1,3 @@
+import {test,expect} from '@playwright/test';
+import {loginUi} from './helpers';
+test('customer creates and tracks a dispute through the UI',async({page})=>{await loginUi(page,'customer');await page.getByRole('button',{name:'New dispute'}).click();await page.getByLabel('Disputed amount (INR)').fill('45.50');await page.getByLabel('Description').fill('Synthetic unexpected fee for my subscription');await page.getByRole('button',{name:'Submit dispute',exact:true}).click();await expect(page.getByRole('heading',{name:/Dispute #/})).toBeVisible();await expect(page.getByText('CREATED',{exact:true})).toBeVisible();await expect(page.getByText('OPEN',{exact:true})).toBeVisible();});

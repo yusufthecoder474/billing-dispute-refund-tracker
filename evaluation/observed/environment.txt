@@ -1,0 +1,11 @@
+Date: 2026-11-07
+OS: Linux x86_64
+JDK: Eclipse Temurin 21.0.13+9
+Maven: 3.9.11
+Node: 24.22.1
+npm: 11.9.0
+PostgreSQL: 16.4 native disposable instance
+Playwright: 1.56.1
+Chromium: 141.0.7390.37
+Docker: unavailable
+PowerShell: unavailable

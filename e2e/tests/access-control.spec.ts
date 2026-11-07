@@ -1,0 +1,3 @@
+import {test,expect} from '@playwright/test';
+import {create,loginApi,post} from './helpers';
+test('ownership, manager permissions and CSRF are enforced by HTTP API',async({request})=>{const d=await create(request);await loginApi(request,'customer2');expect((await request.get('/api/disputes/'+d.id)).status()).toBe(403);expect((await request.get('/api/sla/summary')).status()).toBe(403);expect((await post(request,`/disputes/${d.id}/decision`,{outcome:'APPROVED',approvedRefundAmount:1,explanation:'Unauthorized decision attempt',version:0})).status()).toBe(403);expect((await request.post('/api/disputes',{data:{}})).status()).toBe(403);});

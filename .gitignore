@@ -1,0 +1,12 @@
+.env
+**/target/
+**/node_modules/
+**/dist/
+**/playwright-report/
+**/test-results/
+*.log
+.idea/
+.vscode/
+.DS_Store
+backend/src/main/resources/static/
+*.backup

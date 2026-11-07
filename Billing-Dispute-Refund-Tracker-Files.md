@@ -1,0 +1,124 @@
+# Billing Dispute & Refund Tracker — delivered files
+
+120 files inside the repository folder. Each path below is relative to `billing-dispute-refund-tracker/`. Generated dependencies, target/dist folders, local secrets and Git metadata are excluded.
+
+- `.dockerignore` — Restricts Docker context to needed source/configuration.
+- `.editorconfig` — Shared text and indentation conventions.
+- `.env.example` — Local environment example without production credentials.
+- `.github/PULL_REQUEST_TEMPLATE.md` — Purpose, evidence, risks and code-review checklist.
+- `.github/workflows/ci.yml` — Read-only GitHub Actions build/test/browser pipeline and report uploads.
+- `.gitignore` — Excludes secrets, dependencies and generated builds/reports.
+- `Billing-Dispute-Refund-Tracker-Files.md` — Complete per-file delivery manifest (this file).
+- `CHANGELOG.md` — Initial version scope and verification boundary.
+- `CONTRIBUTING.md` — Contribution rules and local quality checks.
+- `Dockerfile` — Node/Maven multi-stage build and unprivileged Java runtime.
+- `LICENSE` — MIT license.
+- `README.md` — Project overview, exact setup, six features, measured results and documentation index.
+- `SECURITY.md` — Synthetic-data policy and vulnerability reporting guidance.
+- `backend/pom.xml` — Java 21 Spring Boot dependencies, build, Failsafe and JaCoCo configuration.
+- `backend/src/main/java/dev/billing/BillingApplication.java` — Spring Boot application entry point.
+- `backend/src/main/java/dev/billing/auth/AuthController.java` — Current user, CSRF bootstrap and liveness endpoints.
+- `backend/src/main/java/dev/billing/config/AppConfig.java` — UTC clock and OpenAPI application metadata.
+- `backend/src/main/java/dev/billing/config/DemoSeed.java` — BCrypt fictional account seed restricted to local/test profiles.
+- `backend/src/main/java/dev/billing/config/OpenApiConfig.java` — Swagger login/logout, CSRF and error contract customization.
+- `backend/src/main/java/dev/billing/controller/DisputeController.java` — Dispute, workflow, audit and support-directory HTTP endpoints.
+- `backend/src/main/java/dev/billing/controller/ReportingController.java` — Manager-only SLA, weekly JSON and CSV endpoints.
+- `backend/src/main/java/dev/billing/domain/AppUser.java` — User persistence model; password hashes stay outside response DTOs.
+- `backend/src/main/java/dev/billing/domain/AuditEvent.java` — Append-oriented action history persistence model.
+- `backend/src/main/java/dev/billing/domain/Category.java` — Category enum used by validation, persistence and workflow.
+- `backend/src/main/java/dev/billing/domain/Decision.java` — Unique final-decision persistence model.
+- `backend/src/main/java/dev/billing/domain/Dispute.java` — Versioned dispute persistence model with fixed creation/deadline fields.
+- `backend/src/main/java/dev/billing/domain/Outcome.java` — Outcome enum used by validation, persistence and workflow.
+- `backend/src/main/java/dev/billing/domain/Role.java` — Role enum used by validation, persistence and workflow.
+- `backend/src/main/java/dev/billing/domain/Status.java` — Status enum used by validation, persistence and workflow.
+- `backend/src/main/java/dev/billing/dto/ApiDtos.java` — Validated request records and safe response DTOs.
+- `backend/src/main/java/dev/billing/exception/ApiException.java` — Business exception carrying a controlled HTTP status.
+- `backend/src/main/java/dev/billing/exception/ApiExceptionHandler.java` — Validation, conflict and safe server error mapping.
+- `backend/src/main/java/dev/billing/repository/AuditRepository.java` — Audit insert/read API without update/delete methods.
+- `backend/src/main/java/dev/billing/repository/DecisionRepository.java` — Final decision lookup and persistence.
+- `backend/src/main/java/dev/billing/repository/DisputeRepository.java` — Paginated/specification-based dispute persistence.
+- `backend/src/main/java/dev/billing/repository/UserRepository.java` — User lookup and support-directory queries.
+- `backend/src/main/java/dev/billing/security/SecurityConfig.java` — Session login/logout, CSRF, cookie-authenticated route security.
+- `backend/src/main/java/dev/billing/service/DisputeService.java` — Transactional creation, scoped reads, assignment, transitions, decisions and audit.
+- `backend/src/main/java/dev/billing/service/ReportingService.java` — UTC SLA aggregates, weekly SQL totals and CSV generation.
+- `backend/src/main/java/dev/billing/service/Rules.java` — Explicit role/version/state/refund/SLA/CSV rules.
+- `backend/src/main/resources/application-local.yml` — Environment-based Spring configuration and explicit profile overrides.
+- `backend/src/main/resources/application-test.yml` — Environment-based Spring configuration and explicit profile overrides.
+- `backend/src/main/resources/application.yml` — Environment-based Spring configuration and explicit profile overrides.
+- `backend/src/main/resources/db/migration/V1__initial_schema.sql` — Authoritative Flyway creation of four tables, constraints and indexes.
+- `backend/src/test/java/dev/billing/WorkflowIT.java` — Real PostgreSQL integration, authorization, race, fixture and rollback tests.
+- `backend/src/test/java/dev/billing/service/RulesTest.java` — 37 parameterized/unit rule checks.
+- `backend/src/test/resources/evaluation-fixture.sql` — Seven fixed synthetic records for independent SLA/report assertions.
+- `backend/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker` — Subclass mock-maker selection for restricted test runtimes.
+- `compose.yaml` — Two-container local deployment with health checks and persistent database.
+- `docs/API.md` — Endpoint roles, DTOs, examples, validation and error semantics.
+- `docs/ARCHITECTURE.md` — Modular monolith rationale plus architecture/state/sequence diagrams.
+- `docs/BUILD_STEP_BY_STEP.md` — Ten standalone coding prompts with files, commands and acceptance checkpoints.
+- `docs/DATABASE_DESIGN.md` — Relational diagram, schema constraints and index rationale.
+- `docs/DEMO_SCRIPT.md` — Natural three-minute demonstration with concrete actions.
+- `docs/DEPLOYMENT.md` — Local/native setup, environment, shutdown/reset and verified hosting assessment.
+- `docs/DEVELOPMENT_WORKFLOW.md` — Git branch/PR process, review checklist and illustrative PR.
+- `docs/INTERVIEW_QA.md` — Explanations of transaction, security, SQL and evaluation decisions.
+- `docs/REQUIREMENTS.md` — Six-feature acceptance mapping and explicit scope choices.
+- `docs/RESEARCH_GAP.md` — Three verified formal references and practical implementation rationale.
+- `docs/RESUME_EVIDENCE.md` — Jio responsibility mapping and four evidence-based resume bullets.
+- `docs/SECURITY_LIMITATIONS.md` — Session/CSRF/authorization design and production boundaries.
+- `docs/TEST_PLAN.md` — Test layers, execution commands and evaluation methodology.
+- `docs/TEST_RESULTS.md` — Actual environment, commands, passing counts, coverage and blockers.
+- `docs/TROUBLESHOOTING.md` — Symptoms, diagnostics, corrective actions and healthy results.
+- `docs/USER_MANUAL.md` — Plain-language customer, support and manager instructions.
+- `docs/screenshots/dispute-detail.png` — Real application screenshot captured by the successful manager browser test.
+- `docs/screenshots/manager-dashboard.png` — Real application screenshot captured by the successful manager browser test.
+- `e2e/package-lock.json` — Actual npm-generated reproducible dependency lockfile.
+- `e2e/package.json` — Pinned end-to-end dependencies and scripts.
+- `e2e/playwright.config.ts` — Chromium end-to-end runner, base URL and report configuration.
+- `e2e/tests/access-control.spec.ts` — HTTP ownership, role and CSRF rejection scenario.
+- `e2e/tests/concurrency-conflict.spec.ts` — Two independent HTTP manager-session conflict scenario.
+- `e2e/tests/customer-dispute.spec.ts` — Browser customer submission and tracking scenario.
+- `e2e/tests/helpers.ts` — Real session/CSRF and synthetic workflow setup for browser tests.
+- `e2e/tests/manager-decision.spec.ts` — Browser manager decision/report scenario and real screenshot capture.
+- `e2e/tests/support-workflow.spec.ts` — Browser assigned-support review scenario.
+- `evaluation/README.md` — Project overview, exact setup, six features, measured results and documentation index.
+- `evaluation/expected.json` — Independently calculated fixture and concurrency expectations.
+- `evaluation/health.json` — Liveness response captured from the running application.
+- `evaluation/observed/TEST-dev.billing.WorkflowIT.xml` — Recorded JUnit cases/counts/timing; environment property blocks removed.
+- `evaluation/observed/TEST-dev.billing.service.RulesTest.xml` — Recorded JUnit cases/counts/timing; environment property blocks removed.
+- `evaluation/observed/audit.json` — Observed deterministic evaluation output from real PostgreSQL tests.
+- `evaluation/observed/backend-package.log` — Captured output of the named successful final verification command.
+- `evaluation/observed/backend-verify.log` — Captured output of the named successful final verification command.
+- `evaluation/observed/concurrency.json` — Observed deterministic evaluation output from real PostgreSQL tests.
+- `evaluation/observed/e2e-test.log` — Captured output of the named successful final verification command.
+- `evaluation/observed/environment.txt` — Runtime versions and unavailable deployment tools.
+- `evaluation/observed/fixture-results.json` — Observed deterministic evaluation output from real PostgreSQL tests.
+- `evaluation/observed/frontend-build.log` — Captured output of the named successful final verification command.
+- `evaluation/observed/frontend-ci.log` — Captured output of the named successful final verification command.
+- `evaluation/observed/frontend-test.log` — Captured output of the named successful final verification command.
+- `evaluation/observed/frontend-typecheck.log` — Captured output of the named successful final verification command.
+- `evaluation/observed/jacoco.csv` — Actual JaCoCo per-class coverage summary.
+- `evaluation/observed/jacoco.xml` — Actual JaCoCo counters and source-line coverage evidence.
+- `evaluation/observed/playwright-junit.xml` — Recorded five-scenario Playwright JUnit report.
+- `evaluation/observed/summary.json` — Machine-readable observed counts, line coverage and unexecuted checks.
+- `evaluation/openapi.json` — OpenAPI response captured from the running application.
+- `frontend/index.html` — Accessible HTML entry point for the React application.
+- `frontend/package-lock.json` — Actual npm-generated reproducible dependency lockfile.
+- `frontend/package.json` — Pinned frontend dependencies and scripts.
+- `frontend/src/App.tsx` — Session-aware navigation and role-specific page composition.
+- `frontend/src/api/client.ts` — Native fetch client, session CSRF lifecycle and controlled errors.
+- `frontend/src/api/types.ts` — Strict shared API shapes and display helpers.
+- `frontend/src/components/Notice.tsx` — Accessible error and success notices.
+- `frontend/src/components/Pagination.tsx` — Working Previous/Next pagination controls.
+- `frontend/src/main.tsx` — React bootstrap and stylesheet import.
+- `frontend/src/pages/CreateDispute.tsx` — Validated customer submission form.
+- `frontend/src/pages/DisputeDetail.tsx` — Authorized workflow actions, final outcome and audit timeline.
+- `frontend/src/pages/DisputeList.tsx` — Paginated status/date/deadline queue and history.
+- `frontend/src/pages/Login.tsx` — Demo-account sign-in form with CSRF.
+- `frontend/src/pages/ManagerDashboard.tsx` — SLA snapshot, Monday report and CSV download.
+- `frontend/src/styles/app.css` — Responsive, keyboard-friendly application styling.
+- `frontend/src/test/components.test.tsx` — Eight frontend form, queue and error-state tests.
+- `frontend/src/test/setup.ts` — Testing Library matchers and component cleanup.
+- `frontend/tsconfig.json` — Strict TypeScript compiler configuration.
+- `frontend/vite.config.ts` — React build, API development proxy and Vitest settings.
+- `scripts/setup.ps1` — Checked local Docker Compose startup for Windows PowerShell.
+- `scripts/setup.sh` — Checked local Docker Compose startup for Ubuntu/Bash.
+- `scripts/verify.ps1` — Full backend/frontend/Docker/browser verification for Windows PowerShell.
+- `scripts/verify.sh` — Full backend/frontend/Docker/browser verification for Ubuntu/Bash.

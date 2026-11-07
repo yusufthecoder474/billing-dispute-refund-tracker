@@ -1,0 +1,22 @@
+{
+  "weekly" : {
+    "start" : "2026-11-02T00:00:00Z",
+    "end" : "2026-11-09T00:00:00Z",
+    "created" : 1,
+    "resolved" : 2,
+    "withinSla" : 1,
+    "breached" : 1,
+    "averageResolutionHours" : 73.0,
+    "approvedRefundTotal" : 25.5
+  },
+  "sla" : {
+    "open" : 4,
+    "dueSoon" : 2,
+    "overdue" : 1,
+    "resolved" : 3,
+    "resolvedWithinSla" : 2,
+    "resolvedBreached" : 1,
+    "asOf" : "2026-11-02T12:00:00Z"
+  },
+  "sampleSize" : 7
+}

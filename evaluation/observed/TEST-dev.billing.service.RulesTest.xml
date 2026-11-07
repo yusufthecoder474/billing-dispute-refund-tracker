@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="dev.billing.service.RulesTest" time="0.305" tests="37" errors="0" skipped="0" failures="0">
+  <testcase name="rejectedZero" classname="dev.billing.service.RulesTest" time="0.035" />
+  <testcase name="invalidRefund(String)[1]" classname="dev.billing.service.RulesTest" time="0.013" />
+  <testcase name="invalidRefund(String)[2]" classname="dev.billing.service.RulesTest" time="0.003" />
+  <testcase name="invalidRefund(String)[3]" classname="dev.billing.service.RulesTest" time="0.003" />
+  <testcase name="monday" classname="dev.billing.service.RulesTest" time="0.006" />
+  <testcase name="assignedAgent" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="csvEscape" classname="dev.billing.service.RulesTest" time="0.006" />
+  <testcase name="unassignedAgent" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="validVersion" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="validState" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="nonMonday" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="invalidState" classname="dev.billing.service.RulesTest" time="0.007" />
+  <testcase name="rejectedNonzero" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="csvFormula(String)[1]" classname="dev.billing.service.RulesTest" time="0.004" />
+  <testcase name="csvFormula(String)[2]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="csvFormula(String)[3]" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="csvFormula(String)[4]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="csvFormula(String)[5]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="csvFormula(String)[6]" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="csvFormula(String)[7]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="csvFormula(String)[8]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="csvNull" classname="dev.billing.service.RulesTest" time="0.0" />
+  <testcase name="openSlaBoundaries(String, String)[1]" classname="dev.billing.service.RulesTest" time="0.004" />
+  <testcase name="openSlaBoundaries(String, String)[2]" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="openSlaBoundaries(String, String)[3]" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="openSlaBoundaries(String, String)[4]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="correctRole" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="nullRefund" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="resolvedSla(String, String)[1]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="resolvedSla(String, String)[2]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="resolvedSla(String, String)[3]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="nullVersion" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="incorrectRole" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="staleVersion" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="allowedRefund(String)[1]" classname="dev.billing.service.RulesTest" time="0.002" />
+  <testcase name="allowedRefund(String)[2]" classname="dev.billing.service.RulesTest" time="0.001" />
+  <testcase name="allowedRefund(String)[3]" classname="dev.billing.service.RulesTest" time="0.002" />
+</testsuite>

@@ -1,0 +1,52 @@
+# Documentation upgrade — full file list
+
+Documentation-only overlay; it does not overwrite your source, .env or frontend package files.
+
+- `README.md`
+- `UPGRADE_FILE_MANIFEST.md`
+- `UPGRADE_INSTRUCTIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/LOCAL_VERIFICATION.md`
+- `docs/MAINTENANCE_PROMPT.md`
+- `docs/SCREENSHOT_GALLERY.md`
+- `docs/TROUBLESHOOTING.md`
+- `docs/USER_MANUAL.md`
+- `docs/evidence/chat/01-initial-port-conflict.png`
+- `docs/evidence/chat/02-other-app-at-8080.png`
+- `docs/evidence/chat/03-healthy-docker-compose.png`
+- `docs/evidence/chat/04-powershell-script-restriction.png`
+- `docs/evidence/chat/05-docker-desktop.png`
+- `docs/evidence/chat/06-maven-not-on-path.png`
+- `docs/evidence/chat/07-maven-extracted.png`
+- `docs/evidence/chat/08-testcontainers-failure.png`
+- `docs/evidence/chat/09-root-cause-docker-env.png`
+- `docs/evidence/chat/10-isolated-test-db-created.png`
+- `docs/evidence/chat/11-maven-build-success.png`
+- `docs/evidence/chat/12-frontend-npm-ci-warnings.png`
+- `docs/evidence/chat/13-frontend-original-build.png`
+- `docs/evidence/chat/14-original-component-tests.png`
+- `docs/evidence/chat/15-e2e-dependency-install.png`
+- `docs/evidence/chat/16-playwright-5-passed.png`
+- `docs/evidence/chat/17-initial-security-audit.png`
+- `docs/evidence/chat/18-patched-dependencies-audit-clean.png`
+- `docs/evidence/chat/19-updated-frontend-build-tests.png`
+- `docs/evidence/chat/20-git-repo-not-initialized.png`
+- `docs/evidence/chat/21-git-initialized.png`
+- `docs/evidence/weekly-2026-11-02.csv`
+- `docs/screenshots/01-login.png`
+- `docs/screenshots/02-customer-disputes.png`
+- `docs/screenshots/03-customer-dispute-detail.png`
+- `docs/screenshots/04-manager-all-disputes.png`
+- `docs/screenshots/05-manager-assign-support.png`
+- `docs/screenshots/06-assignment-confirmed.png`
+- `docs/screenshots/07-support-open.png`
+- `docs/screenshots/08-support-in-review.png`
+- `docs/screenshots/09-pending-decision.png`
+- `docs/screenshots/10-manager-decision-form.png`
+- `docs/screenshots/11-resolved-and-audit.png`
+- `docs/screenshots/12-sla-dashboard.png`
+- `docs/screenshots/13-weekly-report.png`
+- `e2e/playwright.screenshots.config.ts`
+- `e2e/readme-captures/readme-captures.spec.ts`
+- `scripts/capture-readme-screenshots.ps1`
+- `scripts/capture-readme-screenshots.sh`

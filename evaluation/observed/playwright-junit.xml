@@ -1,0 +1,22 @@
+<testsuites id="" name="" tests="5" failures="0" skipped="0" errors="0" time="5.515402999999999">
+<testsuite name="access-control.spec.ts" timestamp="2026-11-07T01:11:08.474Z" hostname="" tests="1" failures="0" skipped="0" time="0.576" errors="0">
+<testcase name="ownership, manager permissions and CSRF are enforced by HTTP API" classname="access-control.spec.ts" time="0.576">
+</testcase>
+</testsuite>
+<testsuite name="concurrency-conflict.spec.ts" timestamp="2026-11-07T01:11:08.474Z" hostname="" tests="1" failures="0" skipped="0" time="0.764" errors="0">
+<testcase name="two independent manager sessions produce one successful final decision" classname="concurrency-conflict.spec.ts" time="0.764">
+</testcase>
+</testsuite>
+<testsuite name="customer-dispute.spec.ts" timestamp="2026-11-07T01:11:08.474Z" hostname="" tests="1" failures="0" skipped="0" time="0.673" errors="0">
+<testcase name="customer creates and tracks a dispute through the UI" classname="customer-dispute.spec.ts" time="0.673">
+</testcase>
+</testsuite>
+<testsuite name="manager-decision.spec.ts" timestamp="2026-11-07T01:11:08.474Z" hostname="" tests="1" failures="0" skipped="0" time="1.574" errors="0">
+<testcase name="manager records decision, inspects audit and downloads report" classname="manager-decision.spec.ts" time="1.574">
+</testcase>
+</testsuite>
+<testsuite name="support-workflow.spec.ts" timestamp="2026-11-07T01:11:08.474Z" hostname="" tests="1" failures="0" skipped="0" time="1.011" errors="0">
+<testcase name="assigned support advances the workflow" classname="support-workflow.spec.ts" time="1.011">
+</testcase>
+</testsuite>
+</testsuites>
