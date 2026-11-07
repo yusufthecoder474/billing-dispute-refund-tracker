@@ -1,3 +1,5 @@
+> **Two-service upgrade:** The original single-service notes below are historical where they refer to `backend/`, SQL reporting inside the app or the previous Compose service names. See [current two-service design](MICROSERVICES.md) for updated architecture, internal endpoints, deployment, auth, limitations and verification status. New two-service tests are not yet measured.
+
 # Local deployment and optional hosting assessment
 
 The supported zero-service-cost demonstration is Docker Compose on your own machine. Install Docker Desktop on Windows 11 or Docker Engine plus the Compose plugin on Ubuntu. Start the engine before setup. Internet access is needed for the initial image and dependency downloads.

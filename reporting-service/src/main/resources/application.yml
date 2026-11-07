@@ -1,0 +1,17 @@
+server:
+  port: ${PORT:8081}
+spring:
+  application:
+    name: reporting-service
+  main:
+    banner-mode: off
+# Reporting service has no DataSource or JPA dependency.
+billing:
+  internal-api-key: ${INTERNAL_API_KEY:}
+dispute:
+  base-url: ${DISPUTE_BASE_URL:http://127.0.0.1:8080}
+springdoc:
+  api-docs:
+    enabled: ${API_DOCS_ENABLED:false}
+  swagger-ui:
+    enabled: ${API_DOCS_ENABLED:false}

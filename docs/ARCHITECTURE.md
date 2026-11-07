@@ -1,3 +1,5 @@
+> **Two-service upgrade:** The original single-service notes below are historical where they refer to `backend/`, SQL reporting inside the app or the previous Compose service names. See [current two-service design](MICROSERVICES.md) for updated architecture, internal endpoints, deployment, auth, limitations and verification status. New two-service tests are not yet measured.
+
 # Architecture and engineering decisions
 
 [← README](../README.md) · [Database design](DATABASE_DESIGN.md) · [API contract](API.md) · [Test evidence](LOCAL_VERIFICATION.md)

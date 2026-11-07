@@ -1,12 +1,12 @@
-﻿<div align="center">
+<div align="center">
 
-# ðŸ§¾ Billing Dispute & Refund Tracker
+# 🧾 Billing Dispute & Refund Tracker
 
 **From a disputed charge to a fair, traceable decision.**
 
 A full-stack software engineering project that helps customers report billing issues, gives support staff a clear workflow, and helps managers spot deadlines and record decisions.
 
-**Java 21 Â· Spring Boot Â· PostgreSQL Â· React Â· TypeScript**
+**Java 21 · Spring Boot · PostgreSQL · React · TypeScript**
 
 ![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5-6DB33F?logo=springboot&logoColor=white)
@@ -15,7 +15,7 @@ A full-stack software engineering project that helps customers report billing is
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
 
-**[See the screenshots](#see-the-working-application) Â· [Run locally](#run-it-locally) Â· [Understand the workflow](#the-dispute-lifecycle) Â· [Read the user manual](docs/USER_MANUAL.md)**
+**[See the screenshots](#see-the-working-application) · [Run locally](#run-it-locally) · [Understand the workflow](#the-dispute-lifecycle) · [Read the user manual](docs/USER_MANUAL.md)**
 
 <sub>Independent final-year educational project. Fictional accounts and charges. Refund approvals are simulated: no money is transferred.</sub>
 
@@ -31,17 +31,17 @@ Imagine you are charged twice for a monthly subscription. You contact support, b
 
 ## See the working application
 
-These are **real screenshots from a locally running Windows/Docker demonstration on 7 November 2026**, shared during the build and verification. The example dispute is fictional and uses INR 1,000 with a simulated INR 750 refund.
+These are **historical screenshots of the original single-service build from a locally running Windows/Docker demonstration on 7 November 2026**, shared during the build and verification. The example dispute is fictional and uses INR 1,000 with a simulated INR 750 refund.
 
 | Customer creates a dispute | Manager reviews the completed case |
 |:--:|:--:|
 | <a href="docs/screenshots/03-customer-dispute-detail.png"><img src="docs/screenshots/03-customer-dispute-detail.png" width="440" alt="Customer dispute number 1, duplicate charge and deadline"></a> | <a href="docs/screenshots/11-resolved-and-audit.png"><img src="docs/screenshots/11-resolved-and-audit.png" width="440" alt="Final refund decision with five audit history entries"></a> |
-| **Customer view** â€” amount, deadline and current status | **Final decision** â€” outcome, explanation and audit history |
+| **Customer view** — amount, deadline and current status | **Final decision** — outcome, explanation and audit history |
 
 | Support moves the case forward | Manager tracks deadlines and reports |
 |:--:|:--:|
 | <a href="docs/screenshots/08-support-in-review.png"><img src="docs/screenshots/08-support-in-review.png" width="440" alt="Support review page with IN_REVIEW status"></a> | <a href="docs/screenshots/13-weekly-report.png"><img src="docs/screenshots/13-weekly-report.png" width="440" alt="Weekly report showing SLA totals and INR 750 simulated refunds"></a> |
-| **Support workflow** â€” assigned review with traceability | **Weekly report** â€” resolution time, SLA counts and refund totals |
+| **Support workflow** — assigned review with traceability | **Weekly report** — resolution time, SLA counts and refund totals |
 
 **[View all 13 step-by-step application screenshots and the full verification gallery](docs/SCREENSHOT_GALLERY.md)**. The gallery also includes screenshots of the Windows Docker build, Java tests, Playwright tests, dependency fixes and Git initialization. No manual screenshot saving is needed; they are already bundled with this documentation upgrade.
 
@@ -49,12 +49,12 @@ These are **real screenshots from a locally running Windows/Docker demonstration
 
 | Feature | What a nontechnical user sees | Why an engineer cares |
 |---|---|---|
-| ðŸ“ **Dispute submission** | A customer reports an incorrect charge and follows its status. | Forms, validation, REST APIs, role-scoped SQL data. |
-| ðŸ‘¥ **Assignment and support queue** | A manager gives a case to a support employee. | Ownership checks, filtering and pagination. |
-| âœ… **Controlled final decision** | A manager approves or rejects a simulated refund with an explanation. | Transactions, state transitions, data integrity. |
-| â° **72-hour deadline tracking** | The dashboard shows open, due-soon, overdue and resolved cases. | Explicit UTC rules and boundary tests. |
-| ðŸ§¾ **Audit timeline** | Every action shows who did it and when. | Debugging, traceability and atomic writes. |
-| ðŸ“Š **Weekly reporting** | Managers review SLA results and download a CSV. | SQL aggregates, safe exports and documentation. |
+| 📝 **Dispute submission** | A customer reports an incorrect charge and follows its status. | Forms, validation, REST APIs, role-scoped SQL data. |
+| 👥 **Assignment and support queue** | A manager gives a case to a support employee. | Ownership checks, filtering and pagination. |
+| ✅ **Controlled final decision** | A manager approves or rejects a simulated refund with an explanation. | Transactions, state transitions, data integrity. |
+| ⏰ **72-hour deadline tracking** | The dashboard shows open, due-soon, overdue and resolved cases. | Explicit UTC rules and boundary tests. |
+| 🧾 **Audit timeline** | Every action shows who did it and when. | Debugging, traceability and atomic writes. |
+| 📊 **Weekly reporting** | Managers review SLA results and download a CSV. | SQL aggregates, safe exports and documentation. |
 
 ## Who does what?
 
@@ -68,14 +68,14 @@ These are **real screenshots from a locally running Windows/Docker demonstration
 
 ```mermaid
 flowchart TD
-    A["ðŸ§¾ Customer submits a dispute"] --> B["OPEN Â· deadline = created + 72 hours"]
-    B --> C["ðŸ‘” Manager assigns support"]
-    C --> D["ðŸ” Support starts review Â· IN_REVIEW"]
-    D --> E["ðŸ“¨ Support requests decision Â· PENDING_DECISION"]
+    A["🧾 Customer submits a dispute"] --> B["OPEN · deadline = created + 72 hours"]
+    B --> C["👔 Manager assigns support"]
+    C --> D["🔍 Support starts review · IN_REVIEW"]
+    D --> E["📨 Support requests decision · PENDING_DECISION"]
     E --> F{"Manager's decision"}
-    F -->|Approve| G["âœ… RESOLVED_APPROVED"]
-    F -->|Reject| H["âŒ RESOLVED_REJECTED"]
-    G --> I["ðŸ“œ Audit timeline + SLA/report totals"]
+    F -->|Approve| G["✅ RESOLVED_APPROVED"]
+    F -->|Reject| H["❌ RESOLVED_REJECTED"]
+    G --> I["📜 Audit timeline + SLA/report totals"]
     H --> I
     classDef start fill:#DCEFFA,color:#12374A,stroke:#1873A5
     classDef work fill:#E8F5F2,color:#134C49,stroke:#148378
@@ -91,38 +91,38 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    Person["ðŸ‘¥ Customer / Support / Manager"] --> UI["âš›ï¸ React + TypeScript\nForms and dashboard"]
-    UI --> API["â˜• Spring Boot\nValidated REST API + session security"]
-    API --> Rules["Workflow services\nTransaction + concurrency checks"]
-    Rules --> DB[("ðŸ˜ PostgreSQL\nDisputes, decisions, users, audit")]
-    DB --> Report["ðŸ“Š Weekly SQL reporting + CSV"]
-    API --> Report
-    Flyway["Flyway migrations"] -.-> DB
+    Browser["React + TypeScript\nManager dashboard"] --> D["dispute-service\nSpring Boot :8080\nSessions, workflows, SLA"]
+    D -->|"Authenticated REST: weekly JSON/CSV"| R["reporting-service\nSpring Boot :8081\nAggregate + CSV"]
+    R -->|"Authenticated REST: paginated export"| D
+    D --> P[("PostgreSQL\nDisputes and decisions")]
+    R -. "No direct database access" .- P
     classDef frontend fill:#E2F2FA,color:#12435C,stroke:#4B9ABE
-    classDef backend fill:#EAF5EE,color:#184836,stroke:#64A87C
+    classDef svc fill:#EAF5EE,color:#184836,stroke:#64A87C
     classDef data fill:#F1EAF9,color:#4B2F65,stroke:#9572BB
-    class UI frontend
-    class API,Rules,Report backend
-    class DB,Flyway data
+    class Browser frontend
+    class D,R svc
+    class P data
 ```
 
-This is a **modular monolith**: one backend and one database, with a small React user interface. There is no Kafka, Kubernetes, AI or external payment service. For this project, that keeps the code understandable and makes changes easier to test.
+**Two independently buildable Spring Boot services:** dispute-service owns PostgreSQL and all workflow changes; reporting-service calculates weekly aggregates from a versioned, authenticated REST export only. The browser's existing manager reporting routes are unchanged. There is no service discovery, broker, Kubernetes or shared reporting database.
 
-[Architecture, workflow and sequence diagrams](docs/ARCHITECTURE.md) Â· [Database schema and indexes](docs/DATABASE_DESIGN.md) Â· [API documentation](docs/API.md)
+[Two-service architecture and security trade-offs](docs/MICROSERVICES.md) · [Original database schema](docs/DATABASE_DESIGN.md) · [Endpoint reference](docs/API.md)
+
+> **Upgrade status:** This two-service extraction is an implementation candidate. The archived screenshots and old test numbers below relate to the original single-service build. New two-service CI, coverage and startup times must be measured before being advertised.
 
 ## Tech stack, grouped by purpose
 
 | Layer | Tools | Why used |
 |---|---|---|
 | **Frontend** | React 19, TypeScript, HTML5, CSS3, Vite | Accessible forms and role-specific pages. |
-| **Backend** | Java 21, Spring Boot 3.5, Spring Security, Spring Data JPA, Bean Validation | Business rules, authentication and transactional APIs. |
-| **Data** | PostgreSQL 16, Flyway, SQL, `BigDecimal` | Durable records, schema migrations and money-safe calculations. |
+| **Backends (two)** | Java 21, Spring Boot 3.5, REST, Spring Security (dispute service only) | Separate builds/deployments; shared-key internal REST and manager session auth. |
+| **Data** | PostgreSQL 16, Flyway, SQL, `BigDecimal` | Access restricted to dispute-service; report service aggregates REST records. |
 | **Backend tests** | JUnit 5, Spring Boot Test, PostgreSQL integration tests, JaCoCo | Validate decisions, permissions, rollback and coverage. |
 | **Frontend & browser tests** | React Testing Library, Vitest, Playwright | Verify forms, navigation and complete workflows. |
 | **Development & delivery** | Git, GitHub Actions, Maven, npm, Docker Compose | Version control, repeatable builds and local deployment. |
 | **Documentation** | Markdown, OpenAPI/Swagger UI, Mermaid | Explain APIs, workflows, setup and troubleshooting. |
 
-**Dependency note:** the first ZIP contained Vite 7.1.12 and Vitest 3.2.4. On **7 November 2026**, the local frontend was upgraded to **Vite 7.3.7 and Vitest 4.1.12**; that installation reported **0 npm vulnerabilities** and subsequently passed its build and eight component tests. This README upgrade does **not** replace your locally updated `frontend/package.json` or lockfile.
+**Dependency note:** the bundled original frontend lockfile predates the separately verified local upgrade to Vite 7.3.7 and Vitest 4.1.12. Before publishing, retain your currently updated frontend package and lock files instead of overwriting them with the archived baseline. Re-run `npm audit` and frontend tests on the actual assembled version.
 
 ## Database: four key tables
 
@@ -170,26 +170,24 @@ A **unique decision per dispute** and **optimistic locking** (`@Version`) help p
 
 ### Start with Docker (recommended)
 
-Prerequisite: Docker Desktop running with Linux containers. For the original project files, open **PowerShell at the repository root** and run:
+Prerequisite: Docker Desktop running with Linux containers. Open **PowerShell at the repository root** and run:
 
 ```powershell
-if (-not (Test-Path .env)) { Copy-Item .env.example .env }
-# These host ports avoid conflicts with other local projects (for example EventPulse-SRE).
-(Get-Content .env) -replace '^DB_PORT=.*$', 'DB_PORT=55433' -replace '^APP_PORT=.*$', 'APP_PORT=18081' | Set-Content .env
-docker compose up --build -d --wait --wait-timeout 240
-docker compose ps
+# Creates/updates local .env with an untracked shared service key.
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup.ps1
 Start-Process http://localhost:18081
+python scripts/smoke-two-services.py
 ```
 
-Expected: the `app` and `db` services both show **healthy**. Your Windows demonstration succeeded with **application port 18081** and **database host port 55433**. The normal `.env.example` defaults may use 8080/5432; change those if the ports are free. **Never run `docker compose down -v` casually: it deletes the project's database volume.**
+Expected: `db`, `dispute-service` and `reporting-service` all show **healthy**. Your Windows demonstration succeeded with **application port 18081** and **database host port 55433**. The included defaults are app 18081, report 18082 and database 55433; edit `.env` if already in use. **Never run `docker compose down -v` casually: it deletes the project's database volume.**
 
 Linux/macOS shell:
 
 ```sh
 cp -n .env.example .env  # only if not already present
 # Edit APP_PORT and DB_PORT in .env if another project occupies them.
-docker compose up --build -d --wait --wait-timeout 240
-# Open http://localhost:8080, or your chosen APP_PORT.
+./scripts/setup.sh
+# Open http://localhost:18081, or APP_PORT from .env.
 ```
 
 ### Local development tools
@@ -208,6 +206,8 @@ Accounts are seeded in the **local demonstration profile only**. These credentia
 
 ## Tests and verified evidence
 
+**Archive-only baseline (single service, before extraction):** do not attribute these measurements to the two-service code until reverified. The newly added tests and CI are not executed by the documentation upgrade alone.
+
 | Check | Evidence available | Status |
 |---|---|---|
 | Spring Boot / Maven build | Windows Maven `BUILD SUCCESS` screenshot | **Passed locally** |
@@ -218,7 +218,8 @@ Accounts are seeded in the **local demonstration profile only**. These credentia
 | Playwright browser/API suite | Windows Chromium: 5/5 | **Passed locally** |
 | Backend JaCoCo **line** coverage | Archived report: **406/420 = 96.67%** | **Recorded in original run** |
 | Docker Compose deployment | Windows `app` and `db` healthy | **Passed locally** |
-| Hosted GitHub Actions | Build and verify workflow passed on 7 November 2026 | **Passed** |
+| Hosted GitHub Actions | Original single-service run succeeded in 3m46s on 7 Nov 2026 | **Passed for old version only** |
+| New two-service Maven/Compose/CI | Tests and workflow added; not executed in this deliverable environment | **NOT EXECUTED HERE** |
 
 The **80 test cases** (37 + 30 + 8 + 5) reflect the archived and Windows evidence described above, not one single fresh command. The 96.67% figure is **line coverage**, not branch, instruction or production-quality certification. Tests use synthetic data. [Screenshots and exact context](docs/LOCAL_VERIFICATION.md).
 
@@ -259,26 +260,29 @@ Set-Location ..
 | `POST /api/disputes/{id}/decision` | Manager records final simulated decision. |
 | `GET /api/disputes/{id}/audit` | Read committed history. |
 | `GET /api/sla/summary` | Manager's SLA dashboard. |
-| `GET /api/reports/weekly.csv` | Manager's downloadable report. |
+| `GET /api/reports/weekly.csv` | Manager's downloadable report (proxied to reporting-service). |
+| `GET /internal/v1/disputes/export` | Protected, paginated dispute-service export for reporting-service only. |
+| `GET /internal/v1/reports/weekly` | Reporting-service internal JSON report; shared key required. |
 
-OpenAPI/Swagger UI is available in the local application. [Complete endpoint and permission guide](docs/API.md).
+OpenAPI/Swagger UI is available separately in both local applications. Internal endpoints require the shared key and are not browser-facing. [Complete endpoint and permission guide](docs/API.md).
 
 ## Repository layout
 
 ```text
 billing-dispute-refund-tracker/
-â”œâ”€â”€ backend/                   Java 21 Spring Boot, Flyway, JUnit
-â”œâ”€â”€ frontend/                  React, TypeScript, Vite, Vitest
-â”œâ”€â”€ e2e/                       Playwright end-to-end scenarios
-â”œâ”€â”€ scripts/                   Windows and Linux setup/verification
-â”œâ”€â”€ docs/                      Architecture, API, manual, research, screenshots
-â”‚   â”œâ”€â”€ screenshots/           Working application gallery
-â”‚   â””â”€â”€ evidence/chat/         Archived troubleshooting/testing screenshots
-â”œâ”€â”€ evaluation/                Archived reproducible test evidence
-â”œâ”€â”€ .github/workflows/ci.yml   GitHub Actions workflow definition
-â”œâ”€â”€ compose.yaml               App + PostgreSQL local services
-â”œâ”€â”€ Dockerfile                 Multi-stage application build
-â””â”€â”€ README.md                  You are here
+├── dispute-service/          Spring Boot app, database, migrations, JUnit
+├── reporting-service/        Independent Spring Boot app, REST client, CSV, tests
+├── frontend/                  React, TypeScript, Vite, Vitest
+├── e2e/                       Playwright end-to-end scenarios
+├── scripts/                   Windows and Linux setup/verification
+├── docs/                      Architecture, API, manual, research, screenshots
+│   ├── screenshots/           Working application gallery
+│   └── evidence/chat/         Archived troubleshooting/testing screenshots
+├── evaluation/                Archived reproducible test evidence
+├── .github/workflows/ci.yml   GitHub Actions workflow definition
+├── compose.yaml               App + PostgreSQL local services
+├── Dockerfile                 Multi-stage application build
+└── README.md                  You are here
 ```
 
 ## Documentation for different readers
@@ -286,11 +290,11 @@ billing-dispute-refund-tracker/
 | Reader | Start here |
 |---|---|
 | First-time user | [Plain-language user manual](docs/USER_MANUAL.md) |
-| Recruiter or reviewer | [Screenshots](docs/SCREENSHOT_GALLERY.md) Â· [Three-minute demo](docs/DEMO_SCRIPT.md) |
-| Developer | [Architecture](docs/ARCHITECTURE.md) Â· [API contract](docs/API.md) Â· [Database design](docs/DATABASE_DESIGN.md) |
-| Student rebuilding it | [Ten-step build guide](docs/BUILD_STEP_BY_STEP.md) Â· [Git contribution workflow](docs/DEVELOPMENT_WORKFLOW.md) |
+| Recruiter or reviewer | [Screenshots](docs/SCREENSHOT_GALLERY.md) · [Three-minute demo](docs/DEMO_SCRIPT.md) |
+| Developer | [Architecture](docs/ARCHITECTURE.md) · [API contract](docs/API.md) · [Database design](docs/DATABASE_DESIGN.md) |
+| Student rebuilding it | [Ten-step build guide](docs/BUILD_STEP_BY_STEP.md) · [Git contribution workflow](docs/DEVELOPMENT_WORKFLOW.md) |
 | Troubleshooting | [Windows and Docker troubleshooting](docs/TROUBLESHOOTING.md) |
-| Testing reviewer | [Local verification record](docs/LOCAL_VERIFICATION.md) Â· [Original test report](docs/TEST_RESULTS.md) |
+| Testing reviewer | [Local verification record](docs/LOCAL_VERIFICATION.md) · [Original test report](docs/TEST_RESULTS.md) |
 | Academic review | [Research and standards rationale](docs/RESEARCH_GAP.md) |
 
 ## Scope and limitations
@@ -306,4 +310,3 @@ billing-dispute-refund-tracker/
 ## Open source and acknowledgements
 
 Built as an independent final-year software engineering portfolio project. Source files and documentation are covered by the repository's [LICENSE](LICENSE). Project decisions, build steps and limitations are documented so another developer can understand or reproduce the implementation.
-
